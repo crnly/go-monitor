@@ -1,0 +1,8 @@
+groups:
+  - name: endpoint
+    rules:
+      - alert: EndpointUnavailable
+        expr: endpoint_check_success == 0
+        for: 30s
+        annotations:
+          summary: The monitored endpoint has failed its HTTP checks for 30 seconds.

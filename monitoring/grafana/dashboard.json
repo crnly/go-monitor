@@ -1,0 +1,44 @@
+{
+  "uid": "go-monitor",
+  "title": "Go Monitor",
+  "schemaVersion": 39,
+  "refresh": "5s",
+  "time": { "from": "now-5m", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Endpoint health",
+      "description": "1 for a 2xx response, 0 for a failed check.",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 9 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "endpoint_check_success", "legendFormat": "Healthy" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 1,
+          "decimals": 0,
+          "custom": { "lineInterpolation": "stepAfter" }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "HTTP check duration",
+      "description": "Time to response headers or request failure.",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 9 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "endpoint_check_duration_seconds", "legendFormat": "Check duration" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "s", "min": 0 },
+        "overrides": []
+      }
+    }
+  ]
+}
